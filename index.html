@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Launch</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      background: url('Launch_now.png') no-repeat center center / cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Smooth professional zoom */
+    .launch-btn {
+      width: 1650px; 
+      cursor: pointer;
+      animation: zoomPulse 2s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .launch-btn:hover {
+      transform: scale(1.03);
+    }
+
+    @keyframes zoomPulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* Countdown overlay */
+    .countdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .countdown-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .countdown-number {
+      font-size: 17rem; /* Huge countdown */
+      font-weight: bold;
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      animation: pop 1s infinite;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* White screen to cover before redirect */
+    .white-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      z-index: 20;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://newsite.lnbti.lk/jasper-2025" id="launch-link">
+    <img src="LWB1.png" alt="Launch Website Now" class="launch-btn">
+  </a>
+
+  <!-- Countdown Overlay -->
+  <div class="countdown-overlay" id="countdown-overlay">
+    <div class="countdown-number" id="countdown">5</div>
+  </div>
+
+  <!-- White screen -->
+  <div class="white-screen" id="white-screen"></div>
+
+ <script>
+  const launchLink = document.getElementById('launch-link');
+  const countdownOverlay = document.getElementById('countdown-overlay');
+  const countdownNumber = document.getElementById('countdown');
+  const whiteScreen = document.getElementById('white-screen');
+
+  launchLink.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    let timeLeft = 5;
+    countdownNumber.textContent = timeLeft;
+    countdownOverlay.classList.add('active');
+
+    const countdown = setInterval(() => {
+      timeLeft--;
+
+      if (timeLeft === 0) {
+        clearInterval(countdown);
+        whiteScreen.style.display = 'block';
+        window.location.replace(launchLink.href);
+      } else {
+        countdownNumber.textContent = timeLeft;
+      }
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>
